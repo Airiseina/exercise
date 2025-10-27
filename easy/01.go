@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	const filePath = "./hellow world.go"
+	const filePath = "./easy/01.go"
 	file, err := os.OpenFile(filePath, os.O_RDWR, 0644)
 	if err != nil {
 		fmt.Printf("打开文件出错:%v\n", err)
@@ -21,5 +21,4 @@ func main() {
 	}
 	file.Close()
 	fmt.Println(string(content))
-
 }
