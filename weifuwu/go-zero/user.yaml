@@ -1,0 +1,6 @@
+Name: user.user_grpc
+ListenOn: 0.0.0.0:8081 #监听在8081端口上，默认为8080
+Etcd: #go-zero自动帮我们把服务注册到etcd上，这也是框架的一大好处。
+  Hosts:
+    - 127.0.0.1:2379
+  Key: user.user_grpc #服务的key

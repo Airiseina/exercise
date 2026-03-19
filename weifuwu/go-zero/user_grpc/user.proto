@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./user_grpc";
+
+message RegisterReq{
+  string Username =1;
+  string Password =2;
+}
+
+message RegisterResp{
+}
+
+service User{
+  rpc Register(RegisterReq) returns(RegisterResp);
+}

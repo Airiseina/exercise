@@ -1,0 +1,39 @@
+syntax = "proto3";//使用proto3来解读
+
+option go_package="grpc_make/idl/person;person";
+
+package person;
+import "google/api/annotations.proto";
+
+message PersonReq{
+  string name=1;
+  int64 age=2;
+  enum Sex{
+  Man =0;
+  Woman=1;
+  Other=2;
+  }
+  Sex sex=3;
+  reserved "test";
+}
+
+message PersonRes{
+  string name=1;
+  int64 age=2;
+  enum Sex{
+    Man =0;
+    Woman=1;
+    Other=2;
+  }
+  Sex sex=3;
+  reserved "test";
+}
+
+service SearchService{
+  rpc Search(PersonReq) returns(PersonRes){
+    option(google.api.http)={
+      post:"/api/person",
+      body:"*"
+    };
+  };
+}

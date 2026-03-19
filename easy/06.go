@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	myPrintLn(3)
+	myPrintLn(3, "hello world")
 	myPrintLn("你好世界")
 	myPrintLn([]int{1, 2, 3})
 	myPrintLn([]string{"你好", "世界"})
