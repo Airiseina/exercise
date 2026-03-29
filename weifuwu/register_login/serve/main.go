@@ -6,6 +6,7 @@ import (
 	"login/serve/model"
 	"net"
 
+	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
@@ -30,6 +31,13 @@ func main() {
 		log.Fatal(err)
 		return
 	}
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	sqlDB.SetMaxIdleConns(10)
+	sqlDB.SetMaxOpenConns(100)
 	err = db.AutoMigrate(&model.User{})
 	if err != nil {
 		log.Fatal(err)
@@ -37,7 +45,11 @@ func main() {
 	}
 	svr := registerservice.NewServer(&RegisterServiceImpl{DB: db}, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "userservice"}),
 		server.WithServiceAddr(addr),
-		server.WithRegistry(r))
+		server.WithRegistry(r),
+		server.WithLimit(&limit.Option{ //限流
+			MaxConnections: 1000,
+			MaxQPS:         2000,
+		}))
 	err = svr.Run()
 	if err != nil {
 		log.Fatal(err)

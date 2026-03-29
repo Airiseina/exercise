@@ -3,9 +3,9 @@ namespace go user
 include "common.thrift"
 
 struct RegisterReq{
-1: i16 account,
+1: string account,
 2: string name,
-3: i16 password,
+3: string password,
 }
 
 struct RegisterRes{
@@ -13,13 +13,13 @@ struct RegisterRes{
 }
 
 struct LoginReq{
-1: i16 account,
-2: i16 password,
+1: string account,
+2: string password,
 }
 
 struct LoginRes{
 1: common.Resp req,
-2: i16 password,
+2: string password,
 }
 
 service RegisterService{

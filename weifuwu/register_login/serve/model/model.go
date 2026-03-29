@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Account  int16  `gorm:"uniqueIndex;not null" json:"account"`
+	Account  string `gorm:"type:varchar(50);uniqueIndex;not null" json:"account"`
 	Username string `gorm:"type:varchar(50);not null" json:"username"`
-	Password int16  `gorm:"not null" json:"password"`
+	Password string `gorm:"not null" json:"password"`
 }
